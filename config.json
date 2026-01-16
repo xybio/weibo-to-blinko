@@ -1,0 +1,36 @@
+{
+    "user_id_list": "user_id_list.txt",
+    "only_crawl_original": 1,
+    "since_date": "1900-01-01",
+    "start_page": 19,
+    "page_weibo_count": 10,
+    "write_mode": [
+        "csv"
+    ],
+    "original_pic_download": 1,
+    "retweet_pic_download": 0,
+    "original_video_download": 1,
+    "retweet_video_download": 0,
+    "original_live_photo_download": 1,
+    "retweet_live_photo_download": 0,
+    "download_comment": 1,
+    "comment_max_download_count": 100,
+    "download_repost": 1,
+    "repost_max_download_count": 100,
+    "user_id_as_folder_name": 0,
+    "remove_html_tag": 1,
+    "cookie": "SUB=_2A25EZAD6DeRhGeVO71QR9C3Nzj2IHXVnGBwyrDV6PUJbktAbLVXukW1NTQGJ4j20gHeyimjLfgu1JfpstbH6j84F; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WhTq1jaOmjPBfnHrgM0q.eJ5JpX5KzhUgL.Foe7Shq7ShepSK22dJLoIEBLxK.L1-BL1K.LxKqLBo-L1h2LxKMLBK-L1--LxK.L1-2L1K5t; ALF=1770519978; WEIBOCN_FROM=1110006030; MLOGIN=1; _T_WM=77984262213; XSRF-TOKEN=5b0036; M_WEIBOCN_PARAMS=luicode%3D20000174%26uicode%3D20000174",
+    "mysql_config": {
+        "host": "localhost",
+        "port": 3306,
+        "user": "root",
+        "password": "123456",
+        "charset": "utf8mb4"
+    },
+    "store_binary_in_sqlite": 0,
+    "mongodb_URI": "mongodb://[username:password@]host[:port][/[defaultauthdb][?options]]",
+    "post_config": {
+        "api_url": "https://api.example.com",
+        "api_token": ""
+    }
+}
