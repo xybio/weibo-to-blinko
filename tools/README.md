@@ -17,19 +17,19 @@ metadata, and packages everything into a `.bko` file by default.
 ## Quick Start
 
 ```bash
-python weibo-crawler/tools/weibo_to_blinko.py \
-  --csv weibo-crawler/weibo/昵称/3046043151.csv \
-  --media-root weibo-crawler/weibo/昵称 \
-  --output-dir weibo-crawler/weibo/昵称/blinko_bko \
-  --export-template weibo-crawler/weibo/昵称/blinko_export_bk \
+python weibo-to-blinko/weibo-crawler/tools/weibo_to_blinko.py \
+  --csv weibo-to-blinko/weibo-crawler/weibo/昵称/3046043151.csv \
+  --media-root weibo-to-blinko/weibo-crawler/weibo/昵称 \
+  --output-dir weibo-to-blinko/weibo-crawler/weibo/昵称/blinko_bko \
+  --export-template weibo-to-blinko/weibo-crawler/weibo/昵称/blinko_export_bk \
   --seq-start 127 \
   --seq-order newest
 ```
 
 This command outputs:
 
-- Folder: `weibo-crawler/weibo/昵称/blinko_bko`
-- Archive: `weibo-crawler/weibo/昵称/blinko_bko.bko`
+- Folder: `weibo-to-blinko/weibo-crawler/weibo/昵称/blinko_bko`
+- Archive: `weibo-to-blinko/weibo-crawler/weibo/昵称/blinko_bko.bko`
 
 ## What the Tool Generates
 

@@ -139,10 +139,32 @@ def build_note_content(dt, row, attachments):
         for att in attachments:
             if att["type"].startswith("image/"):
                 lines.append(f"![]({att['path']})")
-            else:
+            elif att["type"].startswith("video/"):
                 lines.append(f"[视频]({att['path']})")
+            else:
+                lines.append(f"[附件]({att['path']})")
 
     return "\n".join(lines) + "\n"
+
+
+def guess_mime(filename):
+    ext = Path(filename).suffix.lower()
+    if ext in (".jpg", ".jpeg"):
+        return "image/jpeg"
+    if ext == ".png":
+        return "image/png"
+    if ext == ".gif":
+        return "image/gif"
+    if ext == ".webp":
+        return "image/webp"
+    if ext == ".mp4":
+        return "video/mp4"
+    if ext == ".mov":
+        return "video/quicktime"
+    if ext == ".webm":
+        return "video/webm"
+    mime, _ = mimetypes.guess_type(filename)
+    return mime or "application/octet-stream"
 
 
 def main():
@@ -216,9 +238,7 @@ def main():
                 shutil.copy2(media_path, dest)
 
             size = str(dest.stat().st_size)
-            mime, _ = mimetypes.guess_type(filename)
-            if not mime:
-                mime = "application/octet-stream"
+            mime = guess_mime(filename)
 
             created = datetime.fromtimestamp(attach_ms / 1000, tz=timezone.utc)
             created_iso = created.isoformat().replace("+00:00", "Z")

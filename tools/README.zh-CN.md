@@ -16,19 +16,19 @@
 ## 快速开始
 
 ```bash
-python weibo-crawler/tools/weibo_to_blinko.py \
-  --csv weibo-crawler/weibo/昵称/3046043151.csv \
-  --media-root weibo-crawler/weibo/昵称 \
-  --output-dir weibo-crawler/weibo/昵称/blinko_bko \
-  --export-template weibo-crawler/weibo/昵称/blinko_export_bk \
+python weibo-to-blinko/weibo-crawler/tools/weibo_to_blinko.py \
+  --csv weibo-to-blinko/weibo-crawler/weibo/昵称/3046043151.csv \
+  --media-root weibo-to-blinko/weibo-crawler/weibo/昵称 \
+  --output-dir weibo-to-blinko/weibo-crawler/weibo/昵称/blinko_bko \
+  --export-template weibo-to-blinko/weibo-crawler/weibo/昵称/blinko_export_bk \
   --seq-start 127 \
   --seq-order newest
 ```
 
 执行后输出：
 
-- 目录：`weibo-crawler/weibo/昵称/blinko_bko`
-- 归档：`weibo-crawler/weibo/昵称/blinko_bko.bko`
+- 目录：`weibo-to-blinko/weibo-crawler/weibo/昵称/blinko_bko`
+- 归档：`weibo-to-blinko/weibo-crawler/weibo/昵称/blinko_bko.bko`
 
 ## 输出结构
 

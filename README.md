@@ -1,4 +1,4 @@
-# Weibo to Blinko
+# weibo-to-blinko
 
 [English](README.md) | [中文](README.zh-CN.md)
 
@@ -30,19 +30,19 @@ Ensure the following exist:
 2) Convert to Blinko
 
 ```bash
-python weibo-crawler/tools/weibo_to_blinko.py \
-  --csv weibo-crawler/weibo/昵称/3046043151.csv \
-  --media-root weibo-crawler/weibo/昵称 \
-  --output-dir weibo-crawler/weibo/昵称/blinko_bko \
-  --export-template weibo-crawler/weibo/昵称/blinko_export_bk \
+python weibo-to-blinko/weibo-crawler/tools/weibo_to_blinko.py \
+  --csv weibo-to-blinko/weibo-crawler/weibo/昵称/3046043151.csv \
+  --media-root weibo-to-blinko/weibo-crawler/weibo/昵称 \
+  --output-dir weibo-to-blinko/weibo-crawler/weibo/昵称/blinko_bko \
+  --export-template weibo-to-blinko/weibo-crawler/weibo/昵称/blinko_export_bk \
   --seq-start 127 \
   --seq-order newest
 ```
 
 This produces:
 
-- Folder: `weibo-crawler/weibo/昵称/blinko_bko`
-- Archive: `weibo-crawler/weibo/昵称/blinko_bko.bko`
+- Folder: `weibo-to-blinko/weibo-crawler/weibo/昵称/blinko_bko`
+- Archive: `weibo-to-blinko/weibo-crawler/weibo/昵称/blinko_bko.bko`
 
 3) Import `.bko` into Blinko
 
@@ -52,7 +52,7 @@ Use Blinko's import function and select the generated `.bko`.
 
 Full CLI options and behavior are documented here:
 
-- `weibo-crawler/tools/README.md`
+- `weibo-to-blinko/weibo-crawler/tools/README.md`
 
 ## Weibo-Crawler Docs
 

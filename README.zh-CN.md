@@ -1,4 +1,4 @@
-# Weibo 导出到 Blinko
+# weibo-to-blinko
 
 [English](README.md) | [中文](README.zh-CN.md)
 
@@ -30,19 +30,19 @@
 2) 转换为 Blinko
 
 ```bash
-python weibo-crawler/tools/weibo_to_blinko.py \
-  --csv weibo-crawler/weibo/昵称/3046043151.csv \
-  --media-root weibo-crawler/weibo/昵称 \
-  --output-dir weibo-crawler/weibo/昵称/blinko_bko \
-  --export-template weibo-crawler/weibo/昵称/blinko_export_bk \
+python weibo-to-blinko/weibo-crawler/tools/weibo_to_blinko.py \
+  --csv weibo-to-blinko/weibo-crawler/weibo/昵称/3046043151.csv \
+  --media-root weibo-to-blinko/weibo-crawler/weibo/昵称 \
+  --output-dir weibo-to-blinko/weibo-crawler/weibo/昵称/blinko_bko \
+  --export-template weibo-to-blinko/weibo-crawler/weibo/昵称/blinko_export_bk \
   --seq-start 127 \
   --seq-order newest
 ```
 
 输出结果：
 
-- 目录：`weibo-crawler/weibo/昵称/blinko_bko`
-- 归档：`weibo-crawler/weibo/昵称/blinko_bko.bko`
+- 目录：`weibo-to-blinko/weibo-crawler/weibo/昵称/blinko_bko`
+- 归档：`weibo-to-blinko/weibo-crawler/weibo/昵称/blinko_bko.bko`
 
 3) 在 Blinko 中导入 `.bko`
 
@@ -52,7 +52,7 @@ python weibo-crawler/tools/weibo_to_blinko.py \
 
 完整参数与说明见：
 
-- `weibo-crawler/tools/README.zh-CN.md`
+- `weibo-to-blinko/weibo-crawler/tools/README.zh-CN.md`
 
 ## Weibo-Crawler 原始文档
 
