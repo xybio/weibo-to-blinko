@@ -73,6 +73,16 @@ python weibo-to-blinko/weibo-crawler/tools/weibo_to_blinko.py \
 - `--seq-order`  
   序号排序方式：`newest` 或 `oldest`。
 
+- `--keep-meta`  
+  用逗号分隔的字段保留列表：`weibo_id`、`topic`、`mentions`、`location`、`tool`、`stats`。  
+  例：`--keep-meta tool` 只保留“工具”一行。
+
+- `--no-embed-media`  
+  不在正文中插入图片/视频链接，仅保留 `attachments` 元数据。
+
+- `--no-dedupe`  
+  不按微博 ID 去重。默认会去除 CSV 中的重复微博。
+
 - `--no-zip`  
   不打包 `.bko`。
 

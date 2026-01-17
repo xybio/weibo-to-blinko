@@ -36,7 +36,9 @@ python weibo-to-blinko/weibo-crawler/tools/weibo_to_blinko.py \
   --output-dir weibo-to-blinko/weibo-crawler/weibo/昵称/blinko_bko \
   --export-template weibo-to-blinko/weibo-crawler/weibo/昵称/blinko_export_bk \
   --seq-start 127 \
-  --seq-order newest
+  --seq-order newest \
+  --keep-meta tool \
+  --no-embed-media
 ```
 
 输出结果：

@@ -75,6 +75,17 @@ The output directory follows Blinko export structure:
 - `--seq-order`  
   `newest` or `oldest`. Controls how note IDs are assigned.
 
+- `--keep-meta`  
+  Comma-separated list of metadata to keep: `weibo_id`, `topic`, `mentions`,
+  `location`, `tool`, `stats`.  
+  Example: `--keep-meta tool` keeps only the publishing tool line.
+
+- `--no-embed-media`  
+  Do not embed media links in note content. Media stays in `attachments` only.
+
+- `--no-dedupe`  
+  Do not deduplicate notes by Weibo ID. By default, duplicates in CSV are removed.
+
 - `--no-zip`  
   Skip creating the `.bko` archive.
 

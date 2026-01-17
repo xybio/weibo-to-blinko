@@ -44,6 +44,21 @@ def parse_args():
         help="Sort order for assigning note IDs.",
     )
     parser.add_argument(
+        "--keep-meta",
+        default="weibo_id,topic,mentions,location,tool,stats",
+        help="Comma-separated list of metadata to keep: weibo_id,topic,mentions,location,tool,stats.",
+    )
+    parser.add_argument(
+        "--no-embed-media",
+        action="store_true",
+        help="Do not embed media links in note content; keep only attachments metadata.",
+    )
+    parser.add_argument(
+        "--no-dedupe",
+        action="store_true",
+        help="Do not deduplicate notes by Weibo ID.",
+    )
+    parser.add_argument(
         "--no-zip",
         action="store_true",
         help="Do not package output_dir into a .bko archive.",
@@ -97,7 +112,7 @@ def to_epoch_ms(dt):
     return int(time.mktime(dt.timetuple()) * 1000)
 
 
-def build_note_content(dt, row, attachments):
+def build_note_content(dt, row, attachments, keep_meta, embed_media):
     lines = []
     lines.append(f"# {dt:%Y-%m-%d %H:%M:%S}")
 
@@ -109,32 +124,32 @@ def build_note_content(dt, row, attachments):
     lines.append("")
     lines.append("---")
     weibo_id = (row.get("id") or "").strip()
-    if weibo_id:
+    if "weibo_id" in keep_meta and weibo_id:
         lines.append(f"- 微博ID: {weibo_id}")
 
     topic = (row.get("话题") or "").strip()
-    if topic:
+    if "topic" in keep_meta and topic:
         lines.append(f"- 话题: {topic}")
 
     mentions = (row.get("@用户") or "").strip()
-    if mentions:
+    if "mentions" in keep_meta and mentions:
         lines.append(f"- @用户: {mentions}")
 
     location = (row.get("位置") or "").strip()
-    if location:
+    if "location" in keep_meta and location:
         lines.append(f"- 位置: {location}")
 
     tool = (row.get("工具") or "").strip()
-    if tool:
+    if "tool" in keep_meta and tool:
         lines.append(f"- 工具: {tool}")
 
     likes = (row.get("点赞数") or "").strip()
     comments = (row.get("评论数") or "").strip()
     reposts = (row.get("转发数") or "").strip()
-    if likes or comments or reposts:
+    if "stats" in keep_meta and (likes or comments or reposts):
         lines.append(f"- 互动: 赞 {likes} | 评论 {comments} | 转发 {reposts}")
 
-    if attachments:
+    if embed_media and attachments:
         lines.append("")
         for att in attachments:
             if att["type"].startswith("image/"):
@@ -173,6 +188,11 @@ def main():
     csv_path = Path(args.csv)
     media_root = Path(args.media_root)
     output_dir = Path(args.output_dir)
+    export_template = Path(args.export_template) if args.export_template else None
+    keep_meta = {item.strip() for item in args.keep_meta.split(",") if item.strip()}
+
+    if export_template and not export_template.exists():
+        raise SystemExit(f"export-template not found: {export_template}")
 
     if output_dir.exists():
         shutil.rmtree(output_dir)
@@ -184,7 +204,7 @@ def main():
     for d in (files_dir, pgdump_dir, plugins_dir, vector_dir):
         ensure_dir(d)
 
-    account_template, version = account_template_from_export(args.export_template)
+    account_template, version = account_template_from_export(str(export_template) if export_template else "")
     if not account_template:
         now = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
         account_template = {
@@ -213,6 +233,19 @@ def main():
             rows.append((dt, row))
 
     rows.sort(key=lambda x: x[0], reverse=(args.seq_order == "newest"))
+    if not args.no_dedupe:
+        deduped = []
+        seen = set()
+        for dt, row in rows:
+            weibo_id = (row.get("id") or "").strip()
+            if not weibo_id:
+                deduped.append((dt, row))
+                continue
+            if weibo_id in seen:
+                continue
+            seen.add(weibo_id)
+            deduped.append((dt, row))
+        rows = deduped
 
     extract_ts = int(time.time() * 1000)
     md_extract_dir = files_dir / f"markdown_extract_{extract_ts}"
@@ -264,7 +297,7 @@ def main():
             )
             attachment_id += 1
 
-        content = build_note_content(dt, row, attachments)
+        content = build_note_content(dt, row, attachments, keep_meta, not args.no_embed_media)
         md_name = f"note-{seq}-{base_ms}.md"
         (md_extract_dir / md_name).write_text(content, encoding="utf-8")
 
